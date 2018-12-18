@@ -4,14 +4,18 @@ import json
 from bs4 import BeautifulSoup
 
 if(len(sys.argv)>1):
-	url = sys.argv[1]
-else
+	query = sys.argv[1]
+	query = "%20".join(query.split())
+	url = "https://www.flipkart.com/search?q=" + query
+else:
 	url = "https://www.flipkart.com/search?q=mobiles"
-	
-html = urllib.request.urlopen(url).read()
-soup = BeautifulSoup(html)
 
-obje = []
+print(url)
+
+html = urllib.request.urlopen(url).read()
+soup = BeautifulSoup(html, 'html.parser')
+
+obj = []
 err = 0
 
 for obje in soup.find_all('a', class_="_31qSD5"): 
@@ -32,9 +36,9 @@ for obje in soup.find_all('a', class_="_31qSD5"):
 	if(len(dic)!=4):
 		continue
 
-	obje.append(dic)
+	obj.append(dic)
 
 
-out = json.dumps(obje)
+out = json.dumps(obj)
 
 print(out)
