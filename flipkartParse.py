@@ -5,8 +5,9 @@ from bs4 import BeautifulSoup
 
 if(len(sys.argv)>1):
 	query = sys.argv[1]
-	query = "%20".join(query.split())
-	url = "https://www.flipkart.com/search?q=" + query
+	keyword = {}
+	keyword["q"] = query 
+	url = "https://www.flipkart.com/search?" + urllib.parse.urlencode(keyword)
 else:
 	url = "https://www.flipkart.com/search?q=mobiles"
 
@@ -27,7 +28,7 @@ for obje in soup.find_all('a', class_="_31qSD5"):
 		continue
 
 	for link in obje.find_all('div', class_="_1vC4OE"):
-		dic["price"] = link.get_text()
+		dic["price"] = link.get_text()[1:]
 	if(len(dic)!=3):
 		continue
 
