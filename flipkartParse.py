@@ -3,11 +3,28 @@ import urllib
 import json
 from bs4 import BeautifulSoup
 
+Min = -1
+Max = -1
+
 if(len(sys.argv)>1):
 	query = sys.argv[1]
 	keyword = {}
-	keyword["q"] = query 
-	url = "https://www.flipkart.com/search?" + urllib.parse.urlencode(keyword)
+	keyword["q"] = query
+	if(len(sys.argv)==4):
+		Min = sys.argv[2]
+		Max = sys.argv[3]
+
+	if(Min==-1):
+		price_range = "&p%5B%5D=facets.price_range.from%3DMin"
+	else:
+		price_range = "&p%5B%5D=facets.price_range.from%3D" + str(Min)
+		
+	if(Max==-1):
+		price_range = "&p%5B%5D=facets.price_range.to%3DMax"
+	else:
+		price_range = "&p%5B%5D=facets.price_range.to%3D" + str(Max)
+		 
+	url = "https://www.flipkart.com/search?" + urllib.parse.urlencode(keyword) + price_range
 else:
 	url = "https://www.flipkart.com/search?q=mobiles"
 
