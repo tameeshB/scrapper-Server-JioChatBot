@@ -27,8 +27,6 @@ if(len(sys.argv)>1):
 else:
     url = "https://www.flipkart.com/search?q=mobiles"
 
-print(url)
-
 html = requests.get(url)
 soup = BeautifulSoup(html.content, 'html.parser')
 
