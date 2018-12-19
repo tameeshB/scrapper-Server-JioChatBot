@@ -59,17 +59,18 @@ def getJson(keyword):
 # main
 
 # parser = argparse.ArgumentParser(description='Search amazon.in for products.')
-if len(sys.argv) == 0:
-    print(json.dumps("No search parameter found"))
-    exit(1)
+# if len(sys.argv) == 0:
+#     print(json.dumps("No search parameter found"))
+#     exit(1)
 
-for _ in range(5):
-    JSONresponse = getJson(sys.argv[1])
-    if JSONresponse == "[]":
-        continue
-    else:
-        print(JSONresponse)
-        os._exit(0)
+def amazon_query(key):
+    JSONresponse = []
+    for _ in range(5):
+        JSONresponse = getJson(key)
+        if JSONresponse != "[]":
+            break
+
+    return JSONresponse
         
-print(json.dumps("Error or No record found"))
-exit(1)
+# print(json.dumps("Error or No record found"))
+# exit(1)
